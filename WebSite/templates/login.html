@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='ico.ico') }}">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <meta charset="UTF-8">
+    <br/>
+    <div class="row d-flex justify-content-center">
+        <font size="7" style="color:white">Login</font>
+    </div>
+    <br/>
+<!--    <meta http-equiv="refresh" content="30">-->
+</head>
+<body>
+    <form method="POST">
+        <div class="row d-flex justify-content-center">
+            <input type="password" name="password" autocomplete="on" placeholder="Password">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <br/>
+    <div class="row d-flex justify-content-center">
+        <font size="3" style="color:red" >{{content}}</font>
+    </div>
+</body>
+</html>

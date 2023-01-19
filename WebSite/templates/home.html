@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='ico.ico') }}">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <meta charset="UTF-8">
+    <br/>
+<!--    <div class="row d-flex justify-content-center">-->
+<!--        <font size="7" style="color:white">Measurements</font>-->
+<!--    </div>-->
+<!--    <br/>-->
+<!--    <meta http-equiv="refresh" content="30">-->
+</head>
+<body>
+    <div class="row d-flex justify-content-center">
+        <font size="6" style="color:white">Last 24h</font>
+    </div>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <font size="4" style="color:white">time[h]</font>
+    </div>
+    <br/>
+    {% if heater[0] == 0 %}
+        <div class="row d-flex justify-content-center">
+            <font size="5" style="color:white">Heater: </font>
+            <font size="5" style="color:gray">OFF</font>
+        </div>
+    {% elif heater[0] == 1 %}
+        <div class="row d-flex justify-content-center">
+            <font size="5" style="color:white">Heater: </font>
+            <font size="5" style="color:red">ON</font>
+        </div>
+    {% endif %}
+    <form method="POST">
+        <div class="row d-flex justify-content-center">
+            <input type="text" name="Temp_target" autocomplete="off" placeholder="Temp targer: {{temp_target[0]}} ℃">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <br/>
+    {% for message in content %}
+        <div class="row d-flex justify-content-center">
+            <font size="5" style="color:gray">{{message[0]}}</font>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <font size="6" style="color:white">{{message[1]}} ℃</font>
+        </div>
+        <br/>
+    {% endfor %}
+</body>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+<script>
+var xValues = {{x}};
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      data: {{zero}},
+      borderColor: "blue",
+      fill: false
+      }, {
+      data: {{y}},
+      borderColor: "white",
+      fill: false
+      }, {
+      data: {{heating_history}},
+      borderColor: "red",
+      fill: false
+    }]
+  },
+  options: {
+    legend: {display: false}
+  }
+});
+</script>
+</html>
